@@ -1,0 +1,21 @@
+{
+  "name": "certichain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "node compile.js",
+    "test": "npx hardhat test --no-compile",
+    "deploy:testnet": "npm run compile && npx hardhat run scripts/deploy.js --network botchainTestnet",
+    "deploy:mainnet": "npm run compile && npx hardhat run scripts/deploy.js --network botchainMainnet"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^17.4.2",
+    "hardhat": "^2.29.0",
+    "solc": "^0.8.24"
+  }
+}
