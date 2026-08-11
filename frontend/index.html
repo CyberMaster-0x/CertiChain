@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>CertiChain Ã¢â‚¬â€ Tamper-proof credentials on BOT Chain</title>
+<title>CertiChain - Tamper-proof credentials on BOT Chain</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -91,6 +91,16 @@
   .result-row .k{ color:var(--ink-soft); }
   .result-row .v{ font-family:'IBM Plex Mono', monospace; text-align:right; }
 
+  .friendly-block{ max-width:560px; margin-top:8px; }
+  .friendly-row{ display:flex; justify-content:space-between; gap:16px; padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.08); font-size:14px; }
+  .friendly-row:last-child{ border-bottom:none; }
+  .friendly-row .fk{ color:var(--ink-soft); font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
+  .friendly-row .fv{ font-weight:500; text-align:right; max-width:340px; }
+
+  .tech-details{ margin-top:18px; border-top:1px dashed var(--paper-line); padding-top:12px; }
+  .tech-details summary{ cursor:pointer; font-size:12px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.5px; }
+  .tech-details .result-row{ max-width:none; }
+
   .helper-block{ font-size:13px; color:var(--ink-soft); background:var(--paper); border:1px dashed var(--paper-line); padding:14px 16px; margin-top:20px; line-height:1.6; }
   .helper-block code{ font-family:'IBM Plex Mono', monospace; background:var(--paper-dark); padding:1px 5px; border-radius:2px; }
 
@@ -111,7 +121,7 @@
       <div class="brand-mark">CC</div>
       <div>
         <h1>CertiChain</h1>
-        <p>Tamper-proof credentials Ã‚Â· BOT Chain</p>
+        <p>Tamper-proof credentials | BOT Chain</p>
       </div>
     </div>
     <div class="wallet-box">
@@ -125,10 +135,10 @@
   </div>
 
   <div class="helper-block" id="pinataBlock" style="margin-bottom:24px;">
-    <strong>IPFS (Pinata) key</strong> Ã¢â‚¬â€ needed to issue certificates (not needed to verify).
-    Get a free JWT at <span style="text-decoration:underline;">pinata.cloud</span> Ã¢â€ â€™ API Keys Ã¢â€ â€™ New Key (Admin access is fine for a demo).
+    <strong>IPFS (Pinata) key</strong> - needed to issue certificates (not needed to verify).
+    Get a free JWT at <span style="text-decoration:underline;">pinata.cloud</span> - API Keys - New Key (Admin access is fine for a demo).
     Stored only in this browser's local storage, never sent anywhere except Pinata's API.
-    <br/><strong style="color:var(--seal-revoked);">Never paste this key into the HTML file itself, and never commit a key to a public repository.</strong> If a key ever ends up in a repo or gets shared, revoke it from the Pinata dashboard and generate a new one Ã¢â‚¬â€ treat it exactly like a password.
+    <br/><strong style="color:var(--seal-revoked);">Never paste this key into the HTML file itself, and never commit a key to a public repository.</strong> If a key ever ends up in a repo or gets shared, revoke it from the Pinata dashboard and generate a new one - treat it exactly like a password.
     <div class="field" style="margin-top:10px; margin-bottom:0;">
       <input id="pinataJwt" placeholder="Paste your Pinata JWT here" style="font-size:12px;" />
     </div>
@@ -155,7 +165,7 @@
       </div>
       <div class="field">
         <label for="qualification">Qualification / course</label>
-        <input id="qualification" placeholder="e.g. Solidity Fundamentals Ã¢â‚¬â€ Completed with Distinction" />
+        <input id="qualification" placeholder="e.g. Solidity Fundamentals - Completed with Distinction" />
       </div>
     </div>
     <div class="row">
@@ -173,7 +183,7 @@
       <input id="certNote" placeholder="e.g. BOT Chain Africa Workshop, 15 Aug 2026" />
     </div>
     <div class="hint">
-      These fields are assembled into one canonical record, hashed with keccak256 in your browser, and pinned to IPFS. Change one character later Ã¢â‚¬â€ anywhere Ã¢â‚¬â€ and the hash, and the verification, will no longer match. Nothing sensitive (address, phone, ID number) belongs in these fields Ã¢â‚¬â€ this record is publicly readable by anyone who has the certificate ID.
+      These fields are assembled into one canonical record, hashed with keccak256 in your browser, and pinned to IPFS. Change one character later - anywhere - and the hash, and the verification, will no longer match. Nothing sensitive (address, phone, ID number) belongs in these fields - this record is publicly readable by anyone who has the certificate ID.
     </div>
     <br/>
     <button class="action" id="issueBtn">Issue certificate</button>
@@ -207,7 +217,7 @@
     <button class="action" id="registerBtn">Submit request</button>
     <div class="status-line" id="registerStatus"></div>
     <div class="helper-block">
-      Submitting a request does not grant issuing rights by itself. The platform admin must separately confirm off-chain that this wallet really belongs to the institution it claims to be (an official email, letter, or call), then approve it from the Admin tab. This is what stops anyone from registering as "LAUTECH" and self-issuing certificates that would otherwise render as verified.
+      Submitting a request does not grant issuing rights by itself. The platform admin must separately confirm off-chain that this wallet really belongs to the institution it claims to be (an official email, letter, or call), then approve it from the Admin tab. This is what stops anyone from registering as "LAUTECH" and self-issuing certificates that would otherwise render as verified. One wallet can only be associated with one issuer identity.
     </div>
   </div>
 
@@ -220,11 +230,11 @@
     <button class="ghost" id="rejectBtn">Reject request</button>
     <div class="status-line" id="adminStatus"></div>
     <div class="helper-block">
-      Only the wallet that deployed the contract can call <code>approveIssuer</code> or <code>rejectIssuer</code> Ã¢â‚¬â€ anyone else's transaction will revert. Before approving, verify off-chain that this address genuinely belongs to the institution named in its request (check the <code>IssuerRequested</code> event log on scan.botchain.ai for the name they submitted).
+      Only the wallet that deployed the contract can call <code>approveIssuer</code> or <code>rejectIssuer</code> - anyone else's transaction will revert. Before approving, verify off-chain that this address genuinely belongs to the institution named in its request (check the <code>IssuerRequested</code> event log on scan.botchain.ai for the name they submitted).
     </div>
   </div>
 
-  <footer>Deployed on BOT Chain Ã‚Â· verify contracts at scan.botchain.ai</footer>
+  <footer>Deployed on BOT Chain | verify contracts at scan.botchain.ai</footer>
 </div>
 
 <script>
@@ -232,20 +242,20 @@
 
   // -----------------------------------------------------------------------
   // BOT Chain MAINNET network config, per the values confirmed against the
-  // real deployment (chain ID 677 / 0x3C8, rpc.botchain.ai). Used to force
-  // MetaMask onto the correct network before any contract read/write Ã¢â‚¬â€
+  // real deployment (chain ID 677 / 0x2A5, rpc.botchain.ai). Used to force
+  // MetaMask onto the correct network before any contract read/write -
   // otherwise MetaMask defaults to whatever chain it's already on (e.g.
   // Ethereum mainnet), which is what was producing the "0 ETH on Ethereum"
   // transaction prompt instead of a BOT Chain Mainnet / BOT gas prompt.
   // -----------------------------------------------------------------------
-const BOT_CHAIN_MAINNET = {
-  chainIdHex: "0x2A5",
-  chainIdDecimal: 677,
-  chainName: "BOT Chain Mainnet",
-  nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
-  rpcUrls: ["https://rpc.botchain.ai"],
-  blockExplorerUrls: ["https://scan.botchain.ai"]
-};
+  const BOT_CHAIN_MAINNET = {
+    chainIdHex: "0x2A5",
+    chainIdDecimal: 677,
+    chainName: "BOT Chain Mainnet",
+    nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
+    rpcUrls: ["https://rpc.botchain.ai"],
+    blockExplorerUrls: ["https://scan.botchain.ai"]
+  };
 
   // Ensures window.ethereum is on BOT Chain MAINNET before we do anything
   // else with it. Switches if the wallet already knows the network; adds
@@ -265,7 +275,7 @@ const BOT_CHAIN_MAINNET = {
         params: [{ chainId: BOT_CHAIN_MAINNET.chainIdHex }]
       });
     } catch (switchErr) {
-      // 4902 = MetaMask doesn't have this network yet Ã¢â‚¬â€ add it, then switch.
+      // 4902 = MetaMask doesn't have this network yet - add it, then switch.
       if (switchErr && switchErr.code === 4902) {
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
@@ -299,7 +309,7 @@ const BOT_CHAIN_MAINNET = {
     "function verifyCertificate(uint256 certId) public view returns (tuple(bool exists,bool valid,bool revoked,bool issuerActive,uint256 certId,address issuer,string issuerName,address recipient,string metadataURI,uint64 issuedAt,uint64 revokedAt))",
     "function verifyByHash(bytes32 docHash) external view returns (tuple(bool exists,bool valid,bool revoked,bool issuerActive,uint256 certId,address issuer,string issuerName,address recipient,string metadataURI,uint64 issuedAt,uint64 revokedAt))",
     // Solidity auto-generates this getter for the public `certificates` mapping.
-    // It's the only place `docHash` is exposed Ã¢â‚¬â€ needed to recompute + compare
+    // It's the only place `docHash` is exposed - needed to recompute + compare
     // the hash during IPFS-based verification. No contract change required.
     "function certificates(uint256) view returns (address issuer, address recipient, bytes32 docHash, string metadataURI, uint64 issuedAt, bool revoked, uint64 revokedAt)",
     "event CertificateIssued(uint256 indexed certId, address indexed issuer, address indexed recipient, bytes32 docHash, string metadataURI)"
@@ -309,7 +319,7 @@ const BOT_CHAIN_MAINNET = {
   // Canonical certificate JSON + hashing
   // Used identically at issue time and at verify time. If these two paths
   // ever produce different output for the same logical data, a genuine
-  // certificate will wrongly show as tampered Ã¢â‚¬â€ so this is the one function
+  // certificate will wrongly show as tampered - so this is the one function
   // that must stay perfectly consistent. Keys are sorted and re-typed
   // explicitly (not just JSON.stringify(obj)) so field ORDER never affects
   // the hash, only the VALUES do.
@@ -375,10 +385,62 @@ const BOT_CHAIN_MAINNET = {
     return "https://api.qrserver.com/v1/create-qr-code/?size=" + size + "x" + size + "&data=" + encodeURIComponent(targetURL);
   }
 
+  // Builds the verification URL for a given certificate ID. Centralized so
+  // the issuance success screen and any future caller always agree on the
+  // exact same URL shape that autoVerifyFromURL() knows how to read.
+  function buildVerifyURL(certId) {
+    return window.location.origin + window.location.pathname + "?certId=" + encodeURIComponent(certId);
+  }
+
+  async function copyVerificationLink(url) {
+    try {
+      await navigator.clipboard.writeText(url);
+      alert("Verification link copied.");
+    } catch (_) {
+      prompt("Copy this verification link:", url);
+    }
+  }
+
+  // Downloads the QR image as an actual PNG file rather than just linking to
+  // the generator API. Fetches the image as a blob so the browser's download
+  // dialog gets a real file, not a navigation to an external URL. Falls back
+  // to opening the image in a new tab if the fetch is blocked for any reason
+  // (e.g. offline, or the QR provider changes its CORS policy) so the person
+  // can still save it manually.
+  async function downloadQRCode(qrURL, filename) {
+    try {
+      const res = await fetch(qrURL);
+      if (!res.ok) throw new Error("QR image request failed (" + res.status + ")");
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = blobUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+      window.open(qrURL, "_blank");
+    }
+  }
+
+  // Minimal HTML escaping for user-supplied text (student name, qualification,
+  // institution, notes) before it goes into innerHTML, so a stray quote or
+  // angle bracket in a form field can't break the layout or inject markup.
+  function escapeHtml(str) {
+    return String(str == null ? "" : str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
   // Persist the Pinata JWT locally so the issuer doesn't retype it every session.
   // SECURITY: this is intentionally kept OUT of the source file and out of any
   // const/config at the top of this script. It lives only in this browser's
-  // localStorage. Do not refactor this into a hardcoded value Ã¢â‚¬â€ a JWT baked
+  // localStorage. Do not refactor this into a hardcoded value - a JWT baked
   // into index.html would ship straight into a public GitHub repo the moment
   // this file is committed, and anyone with it can spend your Pinata quota.
   // If a key is ever exposed, revoke it immediately from the Pinata dashboard.
@@ -420,12 +482,12 @@ const BOT_CHAIN_MAINNET = {
     try {
       await ensureBotChainNetwork();
     } catch (err) {
-      alert("Couldn't switch MetaMask to BOT Chain Testnet: " + (err.message || err) + "\n\nPlease switch to BOT Chain Testnet (chain ID 968) manually in MetaMask, then try again.");
+      alert("Couldn't switch MetaMask to BOT Chain Mainnet: " + (err.message || err) + "\n\nPlease switch to BOT Chain Mainnet (chain ID 677) manually in MetaMask, then try again.");
       return;
     }
 
     // Only created AFTER the correct network is confirmed, so every
-    // subsequent read/write goes to BOT Chain Testnet, not whatever
+    // subsequent read/write goes to BOT Chain Mainnet, not whatever
     // network MetaMask happened to be on before.
     provider = new ethers.BrowserProvider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
@@ -434,8 +496,9 @@ const BOT_CHAIN_MAINNET = {
     contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
     document.getElementById('connectBtn').textContent = "Connected";
-    document.getElementById('addrLine').textContent = userAddress.slice(0,6) + "Ã¢â‚¬Â¦" + userAddress.slice(-4);
+    document.getElementById('addrLine').textContent = userAddress.slice(0,6) + "..." + userAddress.slice(-4);
   }
+
   function friendlyContractError(err) {
     const raw = String(err?.reason || err?.shortMessage || err?.message || err || "");
 
@@ -523,21 +586,21 @@ const BOT_CHAIN_MAINNET = {
       if (!fields.studentName.trim() || !fields.qualification.trim() || !fields.institution.trim()) {
         throw new Error("Student name, qualification, and institution are required.");
       }
-      if (!jwt) throw new Error("Paste a Pinata JWT above first Ã¢â‚¬â€ needed to publish the certificate metadata to IPFS.");
+      if (!jwt) throw new Error("Paste a Pinata JWT above first - needed to publish the certificate metadata to IPFS.");
 
       const canonicalStr = canonicalCertificateJSON(fields);
       const docHash = hashCanonicalJSON(canonicalStr);
 
       statusEl.className = 'status-line';
-      statusEl.textContent = "Uploading certificate metadata to IPFSÃ¢â‚¬Â¦";
+      statusEl.textContent = "Uploading certificate metadata to IPFS...";
       const metadataURI = await pinJSONToIPFS(canonicalStr, jwt);
 
-      statusEl.textContent = "Metadata pinned at " + metadataURI + "\nSubmitting transactionÃ¢â‚¬Â¦";
+      statusEl.textContent = "Metadata pinned at " + metadataURI + "\nSubmitting transaction...";
       const tx = await contract.issueCertificate(recipient, docHash, metadataURI);
-      statusEl.textContent = "Waiting for confirmationÃ¢â‚¬Â¦ " + tx.hash;
+      statusEl.textContent = "Waiting for confirmation... " + tx.hash;
       const receipt = await tx.wait();
 
-      // Pull the real on-chain certificate ID out of the CertificateIssued event Ã¢â‚¬â€
+      // Pull the real on-chain certificate ID out of the CertificateIssued event -
       // never assume/guess it, since another transaction could confirm first.
       let certId = null;
       for (const log of receipt.logs) {
@@ -551,24 +614,58 @@ const BOT_CHAIN_MAINNET = {
       }
       if (!certId) throw new Error("Transaction confirmed, but couldn't read the certificate ID from the receipt. Check scan.botchain.ai for tx " + receipt.hash);
 
-      // QR is only generated here Ã¢â‚¬â€ after on-chain confirmation succeeded.
-      const verifyURL = window.location.origin + window.location.pathname + "?certId=" + certId;
-      const qrURL = qrImageURL(verifyURL, 220);
+      // QR is only generated here - after on-chain confirmation succeeded, and
+      // it is built from buildVerifyURL(certId), the exact same URL shape that
+      // autoVerifyFromURL() below knows how to read back out of the query string.
+      // The QR encodes ONLY this URL - no student data, no wallet addresses, no
+      // IPFS data goes into the QR itself. The QR is navigation, not proof; the
+      // actual trust comes from the on-chain record + IPFS hash comparison that
+      // runFullVerification() performs when the link is opened.
+      const verifyURL = buildVerifyURL(certId);
+      const qrURL = qrImageURL(verifyURL, 420);
 
       statusEl.className = 'status-line ok';
       statusEl.textContent = "Certificate #" + certId + " issued and confirmed. Tx: " + receipt.hash;
 
       successEl.innerHTML = `
         <div class="result-card valid" style="margin-top:20px;">
-          <div class="result-row"><span class="k">Certificate ID</span><span class="v">${certId}</span></div>
-          <div class="result-row"><span class="k">Document hash</span><span class="v">${docHash}</span></div>
-          <div class="result-row"><span class="k">IPFS metadata</span><span class="v">${metadataURI}</span></div>
-          <div class="result-row"><span class="k">Verify link</span><span class="v"><a href="${verifyURL}">${verifyURL}</a></span></div>
-          <div style="text-align:center; margin-top:16px;">
-            <img src="${qrURL}" width="220" height="220" alt="QR code linking to certificate verification" style="border:1px solid var(--ink); background:#fff; padding:8px;" />
-            <div class="hint" style="margin-top:8px;">Scan to verify, or place this QR on the printed/PDF certificate.</div>
+          <div class="seal valid">Issued</div>
+          <p style="margin-top:0; font-weight:600;">Certificate issued successfully.</p>
+          <div class="friendly-block">
+            <div class="friendly-row"><span class="fk">Certificate ID</span><span class="fv">#${certId}</span></div>
+            <div class="friendly-row"><span class="fk">Student</span><span class="fv">${escapeHtml(fields.studentName)}</span></div>
+            <div class="friendly-row"><span class="fk">Qualification</span><span class="fv">${escapeHtml(fields.qualification)}</span></div>
+            <div class="friendly-row"><span class="fk">Institution</span><span class="fv">${escapeHtml(fields.institution)}</span></div>
           </div>
+          <div style="text-align:center; margin-top:20px;">
+            <img id="issuedQrImg" src="${qrURL}" width="220" height="220" alt="QR code linking to certificate verification" style="border:1px solid var(--ink); background:#fff; padding:8px;" />
+            <p class="hint" style="margin-top:8px;">Scan this QR code to verify this certificate.</p>
+            <div style="margin-top:10px;">
+              <button class="action" id="downloadQrBtn" type="button">Download QR Code</button>
+              <button class="ghost" id="copyLinkBtn" type="button">Copy Verification Link</button>
+            </div>
+          </div>
+          <div class="friendly-block" style="margin-top:16px;">
+            <div class="friendly-row"><span class="fk">Verification link</span><span class="fv"><a href="${verifyURL}" target="_blank" rel="noopener">${verifyURL}</a></span></div>
+          </div>
+          <details class="tech-details">
+            <summary>View blockchain details</summary>
+            <div class="result-row"><span class="k">Document hash</span><span class="v">${docHash}</span></div>
+            <div class="result-row"><span class="k">IPFS metadata</span><span class="v">${metadataURI}</span></div>
+            <div class="result-row"><span class="k">Transaction</span><span class="v"><a href="https://scan.botchain.ai/tx/${receipt.hash}" target="_blank" rel="noopener">${receipt.hash}</a></span></div>
+          </details>
         </div>`;
+
+      // The QR/link/download controls are injected via innerHTML above, so
+      // their listeners are attached here, after insertion, rather than via
+      // inline onclick attributes - keeps user-supplied text (which may
+      // contain quotes) out of any HTML attribute value.
+      document.getElementById('downloadQrBtn').addEventListener('click', () => {
+        downloadQRCode(qrURL, `certichain-certificate-${certId}-qr.png`);
+      });
+      document.getElementById('copyLinkBtn').addEventListener('click', () => {
+        copyVerificationLink(verifyURL);
+      });
     } catch (err) {
       statusEl.className = 'status-line err';
       statusEl.textContent = "Error: " + friendlyContractError(err);
@@ -581,47 +678,46 @@ const BOT_CHAIN_MAINNET = {
       if (!contract) { await connectWallet(); }
       const name = document.getElementById('issuerName').value.trim();
 
-    if (!name) {
-      throw new Error("Enter your organization name.");
-    }
+      if (!name) {
+        throw new Error("Enter your organization name.");
+      }
 
-    // A wallet can only belong to one issuer organization.
-    const existingIssuer = await contract.issuers(userAddress);
-    const existingName = String(existingIssuer.name || "").trim();
-    const alreadyRegistered = Boolean(existingIssuer.isRegistered);
-    const alreadyActive = Boolean(existingIssuer.isActive);
-    const alreadyPending = Boolean(existingIssuer.isPending);
+      // A wallet can only belong to one issuer organization.
+      const existingIssuer = await contract.issuers(userAddress);
+      const existingName = String(existingIssuer.name || "").trim();
+      const alreadyRegistered = Boolean(existingIssuer.isRegistered);
+      const alreadyActive = Boolean(existingIssuer.isActive);
+      const alreadyPending = Boolean(existingIssuer.isPending);
 
-    if (alreadyRegistered && alreadyActive) {
-      statusEl.className = 'status-line ok';
-      statusEl.textContent =
-        "This wallet is already approved as an issuer" +
-        (existingName ? " for " + existingName + "." : ".");
-      return;
-    }
+      if (alreadyRegistered && alreadyActive) {
+        statusEl.className = 'status-line ok';
+        statusEl.textContent =
+          "This wallet is already approved as an issuer" +
+          (existingName ? " for " + existingName + "." : ".");
+        return;
+      }
 
-    if (alreadyRegistered && !alreadyActive) {
-      statusEl.className = 'status-line err';
-      statusEl.textContent =
-        "This wallet is already registered" +
-        (existingName ? " for " + existingName : "") +
-        ", but it is currently inactive.";
-      return;
-    }
+      if (alreadyRegistered && !alreadyActive) {
+        statusEl.className = 'status-line err';
+        statusEl.textContent =
+          "This wallet is already registered" +
+          (existingName ? " for " + existingName : "") +
+          ", but it is currently inactive.";
+        return;
+      }
 
-    if (alreadyPending) {
-      statusEl.className = 'status-line err';
-      statusEl.textContent =
-        "This wallet already has an issuer request waiting for administrator approval" +
-        (existingName ? " for " + existingName + "." : ".");
-      return;
-    }
+      if (alreadyPending) {
+        statusEl.className = 'status-line err';
+        statusEl.textContent =
+          "This wallet already has an issuer request waiting for administrator approval" +
+          (existingName ? " for " + existingName + "." : ".");
+        return;
+      }
 
-      if (!name) throw new Error("Enter an organization name.");
       statusEl.className = 'status-line';
-      statusEl.textContent = "Submitting requestÃ¢â‚¬Â¦";
+      statusEl.textContent = "Submitting request...";
       const tx = await contract.requestIssuerStatus(name);
-      statusEl.textContent = "Waiting for confirmationÃ¢â‚¬Â¦ " + tx.hash;
+      statusEl.textContent = "Waiting for confirmation... " + tx.hash;
       const receipt = await tx.wait();
       statusEl.className = 'status-line ok';
       statusEl.textContent = "Request submitted. Tx: " + receipt.hash + "\nAn admin still needs to verify and approve this wallet before you can issue certificates.";
@@ -637,47 +733,46 @@ const BOT_CHAIN_MAINNET = {
       if (!contract) { await connectWallet(); }
       const addr = document.getElementById('issuerAddrInput').value.trim();
 
-    if (!ethers.isAddress(addr)) {
-      throw new Error("Enter a valid wallet address.");
-    }
+      if (!ethers.isAddress(addr)) {
+        throw new Error("Enter a valid wallet address.");
+      }
 
-    // Check the issuer's current status before sending an approval transaction.
-    const issuerRecord = await contract.issuers(addr);
-    const issuerName = String(issuerRecord.name || "").trim();
-    const issuerPending = Boolean(issuerRecord.isPending);
-    const issuerRegistered = Boolean(issuerRecord.isRegistered);
-    const issuerActive = Boolean(issuerRecord.isActive);
+      // Check the issuer's current status before sending an approval transaction.
+      const issuerRecord = await contract.issuers(addr);
+      const issuerName = String(issuerRecord.name || "").trim();
+      const issuerPending = Boolean(issuerRecord.isPending);
+      const issuerRegistered = Boolean(issuerRecord.isRegistered);
+      const issuerActive = Boolean(issuerRecord.isActive);
 
-    if (issuerRegistered && issuerActive) {
-      statusEl.className = 'status-line ok';
-      statusEl.textContent =
-        "This wallet is already approved as an issuer" +
-        (issuerName ? " for " + issuerName + "." : ".");
-      return;
-    }
+      if (issuerRegistered && issuerActive) {
+        statusEl.className = 'status-line ok';
+        statusEl.textContent =
+          "This wallet is already approved as an issuer" +
+          (issuerName ? " for " + issuerName + "." : ".");
+        return;
+      }
 
-    if (issuerRegistered && !issuerActive) {
-      statusEl.className = 'status-line err';
-      statusEl.textContent =
-        "This wallet is already registered" +
-        (issuerName ? " for " + issuerName : "") +
-        ", but it is currently inactive.";
-      return;
-    }
+      if (issuerRegistered && !issuerActive) {
+        statusEl.className = 'status-line err';
+        statusEl.textContent =
+          "This wallet is already registered" +
+          (issuerName ? " for " + issuerName : "") +
+          ", but it is currently inactive.";
+        return;
+      }
 
-    if (!issuerPending) {
-      statusEl.className = 'status-line err';
-      statusEl.textContent =
-        "There is no pending issuer request for this wallet. " +
-        "Ask the organization to submit an issuer request first.";
-      return;
-    }
+      if (!issuerPending) {
+        statusEl.className = 'status-line err';
+        statusEl.textContent =
+          "There is no pending issuer request for this wallet. " +
+          "Ask the organization to submit an issuer request first.";
+        return;
+      }
 
-      if (!ethers.isAddress(addr)) throw new Error("Enter a valid wallet address.");
       statusEl.className = 'status-line';
-      statusEl.textContent = "Submitting transactionÃ¢â‚¬Â¦";
+      statusEl.textContent = "Submitting transaction...";
       const tx = await contract.approveIssuer(addr);
-      statusEl.textContent = "Waiting for confirmationÃ¢â‚¬Â¦ " + tx.hash;
+      statusEl.textContent = "Waiting for confirmation... " + tx.hash;
       const receipt = await tx.wait();
       statusEl.className = 'status-line ok';
       statusEl.textContent = "Issuer approved. Tx: " + receipt.hash;
@@ -694,9 +789,9 @@ const BOT_CHAIN_MAINNET = {
       const addr = document.getElementById('issuerAddrInput').value.trim();
       if (!ethers.isAddress(addr)) throw new Error("Enter a valid wallet address.");
       statusEl.className = 'status-line';
-      statusEl.textContent = "Submitting transactionÃ¢â‚¬Â¦";
+      statusEl.textContent = "Submitting transaction...";
       const tx = await contract.rejectIssuer(addr);
-      statusEl.textContent = "Waiting for confirmationÃ¢â‚¬Â¦ " + tx.hash;
+      statusEl.textContent = "Waiting for confirmation... " + tx.hash;
       const receipt = await tx.wait();
       statusEl.className = 'status-line ok';
       statusEl.textContent = "Request rejected. Tx: " + receipt.hash;
@@ -710,9 +805,9 @@ const BOT_CHAIN_MAINNET = {
     if (signer && contract) return contract; // already connected + on the right network
     // Read-only path (e.g. someone opening a QR link with no wallet connected
     // yet, or verifying without signing anything). Best-effort network check:
-    // if a wallet is present, try to get it onto BOT Chain Testnet so reads
+    // if a wallet is present, try to get it onto BOT Chain Mainnet so reads
     // hit the right chain, but don't hard-block verification if the user
-    // dismisses the prompt Ã¢â‚¬â€ worst case they see "not found" and can retry
+    // dismisses the prompt - worst case they see "not found" and can retry
     // after switching manually.
     if (window.ethereum) {
       try { await ensureBotChainNetwork(); } catch (_) { /* non-fatal for reads */ }
@@ -721,7 +816,7 @@ const BOT_CHAIN_MAINNET = {
     return new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
   }
 
-  // Legacy/manual render Ã¢â‚¬â€ used only by the "paste raw content" fallback box,
+  // Legacy/manual render - used only by the "paste raw content" fallback box,
   // left exactly as it behaved before (no IPFS/integrity step).
   function renderResult(result, meansTampered, targetId) {
     const target = document.getElementById(targetId);
@@ -741,20 +836,34 @@ const BOT_CHAIN_MAINNET = {
       <div class="result-card ${cls}">
         <div class="seal ${cls}">${sealText}</div>
         <div class="result-row"><span class="k">Certificate ID</span><span class="v">${result.certId}</span></div>
-        <div class="result-row"><span class="k">Issuer</span><span class="v">${result.issuerName || '(unnamed)'}</span></div>
+        <div class="result-row"><span class="k">Issuer</span><span class="v">${escapeHtml(result.issuerName) || '(unnamed)'}</span></div>
         <div class="result-row"><span class="k">Issuer address</span><span class="v">${result.issuer}</span></div>
         <div class="result-row"><span class="k">Recipient</span><span class="v">${result.recipient}</span></div>
         <div class="result-row"><span class="k">Issued</span><span class="v">${issuedDate}</span></div>
         ${result.revoked ? `<div class="result-row"><span class="k">Revoked</span><span class="v">${new Date(Number(result.revokedAt) * 1000).toLocaleString()}</span></div>` : ''}
-        ${result.metadataURI ? `<div class="result-row"><span class="k">Metadata</span><span class="v">${result.metadataURI}</span></div>` : ''}
+        ${result.metadataURI ? `<div class="result-row"><span class="k">Metadata</span><span class="v">${escapeHtml(result.metadataURI)}</span></div>` : ''}
       </div>`;
+  }
+
+  function integrityLabel(status) {
+    if (status === 'match') return 'Verified';
+    if (status === 'mismatch') return 'Not verified';
+    if (status === 'unreachable') return 'Could not check right now';
+    return 'No certificate file attached';
   }
 
   // Full verification: on-chain status + IPFS metadata fetch + hash recompute
   // + compare. This is the QR-driven path and the primary "Verify" button.
+  // The underlying checks are unchanged from before - existence, revocation,
+  // issuer-active status, IPFS fetch, and keccak256 hash comparison. What
+  // changed is only the final rendering step: an employer-friendly summary
+  // up front (student, qualification, institution, status), with the
+  // technical fields (certificate ID, wallets, on-chain hash, IPFS URI, the
+  // originating transaction) tucked behind a "View blockchain details"
+  // disclosure so a non-technical person isn't shown raw fields first.
   async function runFullVerification(certId) {
     const target = document.getElementById('verifyResult');
-    target.innerHTML = `<div class="status-line">Checking on-chain recordÃ¢â‚¬Â¦</div>`;
+    target.innerHTML = `<div class="status-line">Checking certificate...</div>`;
 
     const readContract = await getReadContract();
     const result = await readContract.verifyCertificate(certId);
@@ -763,51 +872,100 @@ const BOT_CHAIN_MAINNET = {
       target.innerHTML = `
         <div class="result-card missing">
           <div class="seal missing">Not<br/>found</div>
-          <div class="result-row"><span class="k">Status</span><span class="v">CERTIFICATE NOT FOUND</span></div>
-          <div class="result-row"><span class="k">Certificate ID</span><span class="v">${certId}</span></div>
+          <div class="friendly-block">
+            <div class="friendly-row"><span class="fk">Status</span><span class="fv">No certificate found for ID ${escapeHtml(certId)}</span></div>
+          </div>
+          <p class="hint" style="margin-top:12px;">This certificate ID does not exist on BOT Chain. It may not have been issued yet, or the ID may be incorrect.</p>
         </div>`;
       return;
     }
 
-    // docHash isn't part of verifyCertificate()'s return struct Ã¢â‚¬â€ it comes
+    // docHash isn't part of verifyCertificate()'s return struct - it comes
     // from the public `certificates` mapping getter instead. Same contract,
     // no redeploy needed.
     const raw = await readContract.certificates(certId);
     const docHash = raw.docHash;
+    const issuedDate = new Date(Number(result.issuedAt) * 1000);
+    const issuedDateStr = issuedDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
 
-    const issuedDate = new Date(Number(result.issuedAt) * 1000).toLocaleString();
-    const statusCls = result.valid ? 'valid' : 'revoked';
-    const statusText = result.valid ? 'Verified' : (result.revoked ? 'Revoked' : 'Issuer inactive');
+    let friendly = null;
+    let integrityStatus = 'none';
+    let integrityMessage = 'No certificate file is attached to this record.';
 
-    let integrityHTML;
-    if (!result.metadataURI) {
-      integrityHTML = `<div class="result-row"><span class="k">Integrity check</span><span class="v">No IPFS metadata attached to this certificate</span></div>`;
-    } else {
+    if (result.metadataURI) {
       try {
         const fetchedText = await fetchIPFSJSON(result.metadataURI);
         const recomputedHash = hashCanonicalJSON(fetchedText);
         if (recomputedHash.toLowerCase() === docHash.toLowerCase()) {
-          integrityHTML = `<div class="result-row"><span class="k">Integrity check</span><span class="v">Ã¢Å“â€œ Hash matches Ã¢â‚¬â€ content unaltered since issuance</span></div>`;
+          integrityStatus = 'match';
+          integrityMessage = 'This certificate matches exactly what the issuer recorded on BOT Chain. It has not been altered.';
         } else {
-          integrityHTML = `<div class="result-row"><span class="k">Integrity check</span><span class="v" style="color:var(--seal-revoked); font-weight:600;">Ã¢Å“â€” TAMPERED Ã¢â‚¬â€ fetched metadata does not match the on-chain hash</span></div>`;
+          integrityStatus = 'mismatch';
+          integrityMessage = 'This certificate file does not match the blockchain record. It may have been altered after issuance.';
         }
+        try { friendly = JSON.parse(fetchedText); } catch (_) { friendly = null; }
       } catch (fetchErr) {
-        integrityHTML = `<div class="result-row"><span class="k">Integrity check</span><span class="v">Ã¢Å¡Â  Certificate record found on-chain, but metadata could not be retrieved from IPFS (${(fetchErr.message || 'unreachable').slice(0,80)}). This does not mean the certificate is invalid.</span></div>`;
+        integrityStatus = 'unreachable';
+        integrityMessage = 'The certificate file could not be retrieved right now (' + (fetchErr.message || 'network error') + '). This does not mean the certificate is invalid - try again shortly.';
       }
     }
 
+    let overallLabel, overallClass;
+    if (result.revoked) {
+      overallLabel = 'Revoked';
+      overallClass = 'revoked';
+    } else if (!result.issuerActive) {
+      overallLabel = 'Issuer inactive';
+      overallClass = 'revoked';
+    } else if (integrityStatus === 'mismatch') {
+      overallLabel = 'Not verified';
+      overallClass = 'revoked';
+    } else if (integrityStatus === 'match') {
+      overallLabel = 'Verified';
+      overallClass = 'valid';
+    } else {
+      overallLabel = 'Partially verified';
+      overallClass = 'missing';
+    }
+
+    // Best-effort lookup of the original issuance transaction, so "View
+    // blockchain details" can link straight to it. Optional - if this fails
+    // (e.g. RPC hiccup), verification still completes normally without it.
+    let txLink = '';
+    try {
+      const filter = readContract.filters.CertificateIssued(certId);
+      const events = await readContract.queryFilter(filter);
+      if (events && events.length) {
+        txLink = 'https://scan.botchain.ai/tx/' + events[0].transactionHash;
+      }
+    } catch (_) { /* optional, ignore failures */ }
+
+    const studentName = friendly?.studentName ? escapeHtml(friendly.studentName) : 'Not available';
+    const qualification = friendly?.qualification ? escapeHtml(friendly.qualification) : 'Not available';
+    const institution = friendly?.institution ? escapeHtml(friendly.institution) : (result.issuerName ? escapeHtml(result.issuerName) : 'Not available');
+
     target.innerHTML = `
-      <div class="result-card ${statusCls}">
-        <div class="seal ${statusCls}">${statusText}</div>
-        <div class="result-row"><span class="k">Certificate ID</span><span class="v">${result.certId}</span></div>
-        <div class="result-row"><span class="k">Issuer</span><span class="v">${result.issuerName || '(unnamed)'}</span></div>
-        <div class="result-row"><span class="k">Issuer address</span><span class="v">${result.issuer}</span></div>
-        <div class="result-row"><span class="k">Recipient</span><span class="v">${result.recipient}</span></div>
-        <div class="result-row"><span class="k">Issued</span><span class="v">${issuedDate}</span></div>
-        ${result.revoked ? `<div class="result-row"><span class="k">Revoked</span><span class="v">${new Date(Number(result.revokedAt) * 1000).toLocaleString()}</span></div>` : ''}
-        ${integrityHTML}
-        <div class="result-row"><span class="k">On-chain hash</span><span class="v">${docHash}</span></div>
-        ${result.metadataURI ? `<div class="result-row"><span class="k">Metadata</span><span class="v">${result.metadataURI}</span></div>` : ''}
+      <div class="result-card ${overallClass}">
+        <div class="seal ${overallClass}">${overallLabel}</div>
+        <div class="friendly-block">
+          <div class="friendly-row"><span class="fk">Student</span><span class="fv">${studentName}</span></div>
+          <div class="friendly-row"><span class="fk">Qualification</span><span class="fv">${qualification}</span></div>
+          <div class="friendly-row"><span class="fk">Institution</span><span class="fv">${institution}</span></div>
+          <div class="friendly-row"><span class="fk">Date issued</span><span class="fv">${issuedDateStr}</span></div>
+          <div class="friendly-row"><span class="fk">Certificate status</span><span class="fv">${result.revoked ? 'Revoked' : 'Valid'}</span></div>
+          <div class="friendly-row"><span class="fk">Certificate integrity</span><span class="fv">${integrityLabel(integrityStatus)}</span></div>
+        </div>
+        <p class="hint" style="margin-top:12px;">${integrityMessage}</p>
+        <details class="tech-details">
+          <summary>View blockchain details</summary>
+          <div class="result-row"><span class="k">Certificate ID</span><span class="v">${result.certId}</span></div>
+          <div class="result-row"><span class="k">Issuer wallet</span><span class="v">${result.issuer}</span></div>
+          <div class="result-row"><span class="k">Recipient wallet</span><span class="v">${result.recipient}</span></div>
+          <div class="result-row"><span class="k">On-chain hash</span><span class="v">${docHash}</span></div>
+          ${result.metadataURI ? `<div class="result-row"><span class="k">IPFS metadata</span><span class="v">${escapeHtml(result.metadataURI)}</span></div>` : ''}
+          ${result.revoked ? `<div class="result-row"><span class="k">Revoked</span><span class="v">${new Date(Number(result.revokedAt) * 1000).toLocaleString()}</span></div>` : ''}
+          ${txLink ? `<div class="result-row"><span class="k">Transaction</span><span class="v"><a href="${txLink}" target="_blank" rel="noopener">${txLink}</a></span></div>` : ''}
+        </details>
       </div>`;
   }
 
@@ -817,7 +975,7 @@ const BOT_CHAIN_MAINNET = {
     try {
       await runFullVerification(id);
     } catch (err) {
-      document.getElementById('verifyResult').innerHTML = `<div class="status-line err">Error: ${err.reason || err.message || err}</div>`;
+      document.getElementById('verifyResult').innerHTML = `<div class="status-line err">Error: ${friendlyContractError(err)}</div>`;
     }
   });
 
@@ -830,12 +988,15 @@ const BOT_CHAIN_MAINNET = {
       const result = await readContract.verifyByHash(docHash);
       renderResult(result, true, 'verifyResultManual');
     } catch (err) {
-      document.getElementById('verifyResultManual').innerHTML = `<div class="status-line err">Error: ${err.reason || err.message || err}</div>`;
+      document.getElementById('verifyResultManual').innerHTML = `<div class="status-line err">Error: ${friendlyContractError(err)}</div>`;
     }
   });
 
-  // QR-driven auto-verify: if the page was opened as ?certId=123, jump to
-  // the Verify tab and run the check immediately, no clicks required.
+  // QR-driven auto-verify: if the page was opened as ?certId=123 (exactly
+  // the URL shape buildVerifyURL() produces and the QR encodes), jump to
+  // the Verify tab and run the check immediately, no clicks required. This
+  // is the piece that makes the whole QR workflow work end to end - do not
+  // remove it.
   (function autoVerifyFromURL() {
     const params = new URLSearchParams(window.location.search);
     const certId = params.get('certId');
@@ -846,7 +1007,7 @@ const BOT_CHAIN_MAINNET = {
     document.getElementById('panel-verify').classList.add('active');
     document.getElementById('certIdInput').value = certId;
     runFullVerification(certId).catch(err => {
-      document.getElementById('verifyResult').innerHTML = `<div class="status-line err">Error: ${err.reason || err.message || err}</div>`;
+      document.getElementById('verifyResult').innerHTML = `<div class="status-line err">Error: ${friendlyContractError(err)}</div>`;
     });
   })();
 </script>
