@@ -231,23 +231,23 @@
   const CONTRACT_ADDRESS = "0x6b58a85E79a4b46D416A2c5B6E77D4BADC48111a";
 
   // -----------------------------------------------------------------------
-  // BOT Chain Testnet network config, per the values confirmed against the
-  // real deployment (chain ID 968 / 0x3C8, rpc.bohr.life). Used to force
+  // BOT Chain MAINNET network config, per the values confirmed against the
+  // real deployment (chain ID 677 / 0x3C8, rpc.botchain.ai). Used to force
   // MetaMask onto the correct network before any contract read/write —
   // otherwise MetaMask defaults to whatever chain it's already on (e.g.
   // Ethereum mainnet), which is what was producing the "0 ETH on Ethereum"
-  // transaction prompt instead of a BOT Chain Testnet / BOT gas prompt.
+  // transaction prompt instead of a BOT Chain Mainnet / BOT gas prompt.
   // -----------------------------------------------------------------------
-  const BOT_CHAIN_TESTNET = {
-    chainIdHex: "0x3C8", // 968 in hex
-    chainIdDecimal: 968,
-    chainName: "BOT Chain Testnet",
-    nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
-    rpcUrls: ["https://rpc.bohr.life"],
-    blockExplorerUrls: ["https://scan.bohr.life"]
-  };
+const BOT_CHAIN_MAINNET = {
+  chainIdHex: "0x2A5",
+  chainIdDecimal: 677,
+  chainName: "BOT Chain Mainnet",
+  nativeCurrency: { name: "BOT", symbol: "BOT", decimals: 18 },
+  rpcUrls: ["https://rpc.botchain.ai"],
+  blockExplorerUrls: ["https://scan.botchain.ai"]
+};
 
-  // Ensures window.ethereum is on BOT Chain Testnet before we do anything
+  // Ensures window.ethereum is on BOT Chain MAINNET before we do anything
   // else with it. Switches if the wallet already knows the network; adds
   // the network first (EIP-3085) if MetaMask returns the "unrecognized
   // chain" error code 4902, then retries the switch.
@@ -255,14 +255,14 @@
     if (!window.ethereum) return; // caller is responsible for the "no wallet" message
 
     const currentChainId = await window.ethereum.request({ method: "eth_chainId" });
-    if (currentChainId.toLowerCase() === BOT_CHAIN_TESTNET.chainIdHex.toLowerCase()) {
+    if (currentChainId.toLowerCase() === BOT_CHAIN_MAINNET.chainIdHex.toLowerCase()) {
       return; // already on the right network, nothing to do
     }
 
     try {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: BOT_CHAIN_TESTNET.chainIdHex }]
+        params: [{ chainId: BOT_CHAIN_MAINNET.chainIdHex }]
       });
     } catch (switchErr) {
       // 4902 = MetaMask doesn't have this network yet — add it, then switch.
@@ -270,18 +270,18 @@
         await window.ethereum.request({
           method: "wallet_addEthereumChain",
           params: [{
-            chainId: BOT_CHAIN_TESTNET.chainIdHex,
-            chainName: BOT_CHAIN_TESTNET.chainName,
-            nativeCurrency: BOT_CHAIN_TESTNET.nativeCurrency,
-            rpcUrls: BOT_CHAIN_TESTNET.rpcUrls,
-            blockExplorerUrls: BOT_CHAIN_TESTNET.blockExplorerUrls
+            chainId: BOT_CHAIN_MAINNET.chainIdHex,
+            chainName: BOT_CHAIN_MAINNET.chainName,
+            nativeCurrency: BOT_CHAIN_MAINNET.nativeCurrency,
+            rpcUrls: BOT_CHAIN_MAINNET.rpcUrls,
+            blockExplorerUrls: BOT_CHAIN_MAINNET.blockExplorerUrls
           }]
         });
         // Some wallets auto-switch after adding; others need an explicit
         // switch call afterward. Try again to be safe.
         await window.ethereum.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: BOT_CHAIN_TESTNET.chainIdHex }]
+          params: [{ chainId: BOT_CHAIN_MAINNET.chainIdHex }]
         });
       } else {
         throw switchErr;

@@ -6,8 +6,8 @@
   "scripts": {
     "compile": "node compile.js",
     "test": "npx hardhat test --no-compile",
-    "deploy:testnet": "npm run compile && npx hardhat run scripts/deploy.js --network botchainTestnet",
-    "deploy:mainnet": "npm run compile && npx hardhat run scripts/deploy.js --network botchainMainnet"
+    "deploy:testnet": "npm run compile && npx hardhat run scripts/deploy.js --network botchainTestnet --no-compile",
+    "deploy:mainnet": "npm run compile && npx hardhat run scripts/deploy.js --network botchainMainnet --no-compile"
   },
   "keywords": [],
   "author": "",
