@@ -257,6 +257,12 @@
     blockExplorerUrls: ["https://scan.botchain.ai"]
   };
 
+  // Single source of truth for the public RPC endpoint, derived from the
+  // config above rather than duplicated as a second hardcoded string. Used
+  // by the read-only verification path (getReadContract()) so that QR/link
+  // verification works on devices with no wallet installed at all.
+  const RPC_URL = BOT_CHAIN_MAINNET.rpcUrls[0];
+
   // Ensures window.ethereum is on BOT Chain MAINNET before we do anything
   // else with it. Switches if the wallet already knows the network; adds
   // the network first (EIP-3085) if MetaMask returns the "unrecognized
@@ -456,6 +462,13 @@
   if (issuedDateEl) issuedDateEl.value = new Date().toISOString().slice(0, 10);
 
   let provider, signer, contract, userAddress;
+  // Separate from `provider` on purpose: `provider` is only ever created/
+  // reassigned by connectWallet() (a BrowserProvider tied to the injected
+  // wallet, used for signing). `readProvider` is a plain JsonRpcProvider
+  // against the app's own public RPC, used only for read-only verification
+  // so that path never depends on window.ethereum being present, and never
+  // touches or overwrites the wallet-connected `provider`.
+  let readProvider;
 
   const configNote = document.getElementById('configNote');
   if (CONTRACT_ADDRESS.toLowerCase() === "0x0000000000000000000000000000000000dead") {
@@ -803,17 +816,18 @@
 
   async function getReadContract() {
     if (signer && contract) return contract; // already connected + on the right network
-    // Read-only path (e.g. someone opening a QR link with no wallet connected
-    // yet, or verifying without signing anything). Best-effort network check:
-    // if a wallet is present, try to get it onto BOT Chain Mainnet so reads
-    // hit the right chain, but don't hard-block verification if the user
-    // dismisses the prompt - worst case they see "not found" and can retry
-    // after switching manually.
-    if (window.ethereum) {
-      try { await ensureBotChainNetwork(); } catch (_) { /* non-fatal for reads */ }
+
+    // Read-only path (e.g. someone opening a QR link with no wallet
+    // installed at all - a phone scanning a printed certificate usually has
+    // no MetaMask). This goes straight to the app's own public BOT Chain
+    // RPC via a dedicated JsonRpcProvider instead of window.ethereum, so it
+    // works with zero wallet dependency. There's no "wrong network" to
+    // switch here either, since this provider only ever points at
+    // RPC_URL - so no ensureBotChainNetwork() call is needed on this path.
+    if (!readProvider) {
+      readProvider = new ethers.JsonRpcProvider(RPC_URL);
     }
-    if (!provider) provider = new ethers.BrowserProvider(window.ethereum || {});
-    return new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+    return new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, readProvider);
   }
 
   // Legacy/manual render - used only by the "paste raw content" fallback box,
