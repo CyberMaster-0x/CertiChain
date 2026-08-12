@@ -30,6 +30,18 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "CertiChain secure IPFS backend"
+  });
+});
+
+app.get("/health", (req, res) => {
+  res.json({
+    status: "healthy"
+  });
+});
 
 // Helper function to validate certificate metadata
 function validateMetadata(canonicalJSONString) {

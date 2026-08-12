@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -134,7 +134,7 @@
     Set CONTRACT_ADDRESS at the top of the script block below to your deployed CertiChain address before using this page.
   </div>
 
-  <div class="helper-block" id="pinataBlock" style="margin-bottom:24px;">
+  <div class="helper-block" id="pinataBlock" style="margin-bottom:24px; display:none;">
     <strong>IPFS (Pinata) key</strong> - needed to issue certificates (not needed to verify).
     Get a free JWT at <span style="text-decoration:underline;">pinata.cloud</span> - API Keys - New Key (Admin access is fine for a demo).
     Stored only in this browser's local storage, never sent anywhere except Pinata's API.
@@ -239,6 +239,7 @@
 
 <script>
   const CONTRACT_ADDRESS = "0x6b58a85E79a4b46D416A2c5B6E77D4BADC48111a";
+  const BACKEND_URL = "https://certichain-yhtr.onrender.com";
 
   // -----------------------------------------------------------------------
   // BOT Chain MAINNET network config, per the values confirmed against the
@@ -367,24 +368,22 @@
     }
   }
 
-  async function pinJSONToIPFS(canonicalStr, jwt) {
-    const res = await fetch("https://api.pinata.cloud/pinning/pinJSONToIPFS", {
+  async function pinJSONToIPFS(canonicalStr) {
+    const res = await fetch((BACKEND_URL || "") + "/api/certificates/metadata", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + jwt
-      },
-      body: JSON.stringify({
-        pinataContent: JSON.parse(canonicalStr),
-        pinataMetadata: { name: "certichain-cert" }
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ canonicalJSON: canonicalStr })
     });
     if (!res.ok) {
-      const text = await res.text().catch(() => "");
-      throw new Error("Pinata upload failed (" + res.status + "): " + text.slice(0, 200));
+      let errMsg = "Metadata upload failed";
+      try {
+        const errData = await res.json();
+        if (errData && errData.error) errMsg = errData.error;
+      } catch (_) {}
+      throw new Error("Backend IPFS storage error: " + errMsg);
     }
     const data = await res.json();
-    return "ipfs://" + data.IpfsHash;
+    return data.metadataURI;
   }
 
   function qrImageURL(targetURL, size) {
@@ -593,20 +592,20 @@
 
       const recipient = document.getElementById('recipientAddr').value.trim();
       const fields = readCertificateForm();
-      const jwt = pinataInput.value.trim();
+      
 
       if (!ethers.isAddress(recipient)) throw new Error("Enter a valid recipient wallet address.");
       if (!fields.studentName.trim() || !fields.qualification.trim() || !fields.institution.trim()) {
         throw new Error("Student name, qualification, and institution are required.");
       }
-      if (!jwt) throw new Error("Paste a Pinata JWT above first - needed to publish the certificate metadata to IPFS.");
+      
 
       const canonicalStr = canonicalCertificateJSON(fields);
       const docHash = hashCanonicalJSON(canonicalStr);
 
       statusEl.className = 'status-line';
       statusEl.textContent = "Uploading certificate metadata to IPFS...";
-      const metadataURI = await pinJSONToIPFS(canonicalStr, jwt);
+      const metadataURI = await pinJSONToIPFS(canonicalStr);
 
       statusEl.textContent = "Metadata pinned at " + metadataURI + "\nSubmitting transaction...";
       const tx = await contract.issueCertificate(recipient, docHash, metadataURI);
