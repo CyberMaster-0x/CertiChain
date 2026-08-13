@@ -327,7 +327,7 @@
     // It's the only place `docHash` is exposed - needed to recompute + compare
     // the hash during IPFS-based verification. No contract change required.
     "function certificates(uint256) view returns (address issuer, address recipient, bytes32 docHash, string metadataURI, uint64 issuedAt, bool revoked, uint64 revokedAt)",
-    "event CertificateIssued(uint256 indexed certId, address indexed issuer, address indexed recipient, bytes32 docHash, string metadataURI)"
+    "event CertificateIssued(uint256 indexed certId, address indexed issuer, address indexed recipient, bytes32 docHash, string metadataURI)",`r`n  "event IssuerRequested(address indexed issuer, string name)"
   ];
 
   // -----------------------------------------------------------------------
