@@ -229,7 +229,7 @@
     </div>
   </div>
 
-  <div class="panel" id="panel-admin">
+  <div class="panel" id="panel-admin"><div id="pendingIssuersList" style="margin-bottom:20px;"></div>
     <div class="field">
       <label for="issuerAddrInput">Issuer wallet address to review</label>
       <input id="issuerAddrInput" placeholder="0x..." />
@@ -489,7 +489,11 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
       tab.classList.add('active');
-      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      const panelId = 'panel-' + tab.dataset.tab;
+      document.getElementById(panelId).classList.add('active');
+      if (tab.dataset.tab === 'admin') {
+        loadPendingIssuers();
+      }
     });
   });
 
@@ -700,6 +704,64 @@
       statusEl.textContent = "Error: " + friendlyContractError(err);
     }
   });
+
+  async function loadPendingIssuers() {
+    const listEl = document.getElementById('pendingIssuersList');
+    if (!listEl) return;
+    if (!contract) {
+      listEl.innerHTML = '<div class="hint">Connect your admin wallet to load pending requests.</div>';
+      return;
+    }
+    listEl.innerHTML = '<div class="hint">Searching blockchain for registration requests...</div>';
+    try {
+      const filter = contract.filters.IssuerRequested();
+      const events = await contract.queryFilter(filter, 0, 'latest');
+      
+      const requests = {};
+      for (const ev of events) {
+        const addr = ev.args.issuer;
+        const name = ev.args.name;
+        requests[addr] = name;
+      }
+      
+      const addrs = Object.keys(requests);
+      let hasPending = false;
+      
+      let html = '<h3 style="font-family:\'Fraunces\', serif; font-size:16px; margin-top:0; margin-bottom:10px;">Pending Registration Requests</h3><div style="background:var(--paper); border:1px solid var(--paper-line); padding:12px; border-radius:2px; max-height:220px; overflow-y:auto; margin-bottom:20px;">';
+      
+      for (const addr of addrs) {
+        const record = await contract.issuers(addr);
+        if (record.isPending) {
+          hasPending = true;
+          html += `
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.05);">
+              <div style="text-align:left;">
+                <strong style="font-size:13px; color:var(--ink);">${escapeHtml(requests[addr])}</strong><br/>
+                <code style="font-size:11px; color:var(--ink-soft);">${addr.slice(0,10)}...${addr.slice(-8)}</code>
+              </div>
+              <button class="action" style="padding:4px 10px; font-size:12px; margin-left:10px; height:auto;" onclick="selectPendingIssuer('${addr}')">Review</button>
+            </div>
+          `;
+        }
+      }
+      
+      html += '</div>';
+      
+      if (!hasPending) {
+        listEl.innerHTML = '<div class="hint" style="margin-bottom:20px;">No pending registration requests found on-chain.</div>';
+      } else {
+        listEl.innerHTML = html;
+      }
+    } catch (err) {
+      listEl.innerHTML = '<div class="status-line err" style="margin-bottom:20px;">Failed to load requests: ' + err.message + '</div>';
+    }
+  }
+  
+  window.selectPendingIssuer = function(addr) {
+    document.getElementById('issuerAddrInput').value = addr;
+    document.getElementById('adminStatus').className = 'status-line';
+    document.getElementById('adminStatus').textContent = "Selected address. Click 'Approve issuer' or 'Reject request' below to execute.";
+  };
 
   document.getElementById('registerBtn').addEventListener('click', async () => {
     const statusEl = document.getElementById('registerStatus');
